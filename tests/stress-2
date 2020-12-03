@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# Verify that ls succeeds listing a large amount of files and directories
+
+"$LS" /dev/ /dev/* -l > /dev/null 2>out.err
+RC=$?
+
+[ $RC -ne 0 ] && echo "Non-zero exit code" && exit 1
+[ -s out.err ] && echo "Non-empty standard error" && exit 1
+
+exit 0

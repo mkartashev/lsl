@@ -1,0 +1,5 @@
+Usage: ls OPTION [FILE]...
+Lists information about the FILEs (the current directory by default)).
+
+Options:
+  -l	use a long listing format

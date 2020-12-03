@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# Verify that --help actually displays a help message and exits with 0.
+
+"$LS" --help > out 2>&1
+[ $? -ne 0 ] && exit 1
+
+diff out "$ROOT/args-help.ref" > diffs 2>/dev/null
+if [ $? -ne 0 ]; then
+	echo "--help output differs from reference"
+	exit 1
+fi
+
+exit 0

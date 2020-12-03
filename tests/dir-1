@@ -1,0 +1,45 @@
+#!/bin/bash -x
+#
+# Verify listing of files with different modes
+
+mkdir testdir
+pushd testdir
+
+mkdir dir1
+pushd dir1
+dd if=/dev/zero of=file count=8
+echo "11111111111111111111" > 1
+dd if=/dev/zero of=zeroes.bin count=111
+mkdir dir2
+ln -s 1 2
+ln 1 Xtra
+popd
+echo "Extra" > simple
+ln simple hardlink1
+ln simple hardlink2
+ln simple hardlink3
+ln simple hardlink4
+ln simple hardlink5
+ln simple hardlink-6
+ln simple hardlink-7
+ln simple hardlink8
+ln simple hardlink99
+ln simple a
+ln simple b
+ln simple c
+
+"$LS" -l dir1 simple . dir1/dir2 > ../out 2>../out.err
+RC=$?
+
+popd
+
+[ $RC -ne 0 ] && echo "Non-zero exit code" && exit 1
+[ -s out.err ] && echo "Non-empty standard error" && exit 1
+
+diff out "$ROOT/dir-1.ref" > diffs 2>/dev/null
+if [ $? -ne 0 ]; then
+	echo "Standard output differs"
+	exit 1
+fi
+
+exit 0

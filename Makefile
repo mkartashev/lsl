@@ -16,9 +16,10 @@ MODE = opt
 CFLAGS = $(CFLAGS_$(MODE))
 CFLAGS+= $(CFLAGS_comm)
 
-HDR :=
-SRC_src := src/main.c
-SRC := Makefile $(SRC_src)
+HDR := $(wildcard src/*.h)
+SRC_src := $(wildcard src/*.c)
+SRC_tests := $(wildcard tests/*)
+SRC := Makefile runtests.sh $(SRC_src) $(SRC_tests)
 OBJ_src := $(patsubst src/%.c,obj/%.o,$(SRC_src))
 OBJ := $(OBJ_src)
 BIN := ls
@@ -34,8 +35,9 @@ help:
 	@echo "    all     - build optimized version (default)"
 	@echo "    tar     - package source and makefiles"
 	@echo "    clean   - remove object and generated source files"
-	@echo "	   clobber - clean and remove auto-generated dependencies"
-	@echo
+	@echo "    clobber - clean and remove auto-generated dependencies"
+	@echo "    test    - run tests"
+	@echo ""
 	@echo "Options:"
 	@echo "    MODE=opt   - build optimized version (default)"
 	@echo "        =debug - build debug version"
@@ -46,16 +48,18 @@ INCLUDES = $(patsubst %,-I %/,$(SUBDIRS))
 $(BIN): $(OBJ)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(OBJ)
 
+test: $(BIN)
+	-@./runtests.sh
+
 clean:
 	$(RM) $(BIN)
 	$(RM) $(OBJ)
-	$(RM) $(GEN_SRC)
 
 clobber: clean
 	$(RM) $(DEPS)
 
 tar:
-	@tar czvf ls.tar.gz $(SRC) $(HDR) > /dev/null
+	@tar czvf ls.tar.gz readme.txt $(SRC) $(HDR) > /dev/null
 	@echo "Source tree packed into ls.tar.gz"
 
 obj/%.o: src/%.c

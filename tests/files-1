@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# Verify listing of files with different modes
+
+mkdir testdir
+pushd testdir
+
+touch file
+touch File1
+echo "11111111111111111111" > 1
+dd if=/dev/zero of=zeroes.bin count=1000 
+mkdir dir
+ln -s 1 2
+ln 1 Xtra
+chmod 757 File1
+chmod 111 2
+
+"$LS" -l > ../out 2>../out.err
+RC=$?
+
+popd
+
+[ $RC -ne 0 ] && echo "Non-zero exit code" && exit 1
+[ -s out.err ] && echo "Non-empty standard error" && exit 1
+
+diff out "$ROOT/files-1.ref" > diffs 2>/dev/null
+if [ $? -ne 0 ]; then
+	echo "Standard output differs"
+	exit 1
+fi
+
+exit 0

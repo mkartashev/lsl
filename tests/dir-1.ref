@@ -1,0 +1,27 @@
+-rw-rw-r-- 13 tester testgrp     6 Jan  3 11:12:42 simple 
+.:
+total 112
+-rw-rw-r-- 13 tester testgrp     6 Jan  3 11:12:42 a 
+-rw-rw-r-- 13 tester testgrp     6 Jan  3 11:12:42 b 
+-rw-rw-r-- 13 tester testgrp     6 Jan  3 11:12:42 c 
+drwxrwxr-x  3 tester testgrp  4096 Jan  3 11:12:42 dir1 
+-rw-rw-r-- 13 tester testgrp     6 Jan  3 11:12:42 hardlink-6 
+-rw-rw-r-- 13 tester testgrp     6 Jan  3 11:12:42 hardlink-7 
+-rw-rw-r-- 13 tester testgrp     6 Jan  3 11:12:42 hardlink1 
+-rw-rw-r-- 13 tester testgrp     6 Jan  3 11:12:42 hardlink2 
+-rw-rw-r-- 13 tester testgrp     6 Jan  3 11:12:42 hardlink3 
+-rw-rw-r-- 13 tester testgrp     6 Jan  3 11:12:42 hardlink4 
+-rw-rw-r-- 13 tester testgrp     6 Jan  3 11:12:42 hardlink5 
+-rw-rw-r-- 13 tester testgrp     6 Jan  3 11:12:42 hardlink8 
+-rw-rw-r-- 13 tester testgrp     6 Jan  3 11:12:42 hardlink99 
+-rw-rw-r-- 13 tester testgrp     6 Jan  3 11:12:42 simple 
+dir1:
+total 144
+-rw-rw-r--  2 tester testgrp    21 Jan  3 11:12:42 1 
+lrwxrwxrwx  1 tester testgrp     1 Jan  3 11:12:42 2 -> 1
+drwxrwxr-x  2 tester testgrp  4096 Jan  3 11:12:42 dir2 
+-rw-rw-r--  1 tester testgrp  4096 Jan  3 11:12:42 file 
+-rw-rw-r--  2 tester testgrp    21 Jan  3 11:12:42 Xtra 
+-rw-rw-r--  1 tester testgrp 56832 Jan  3 11:12:42 zeroes.bin 
+dir1/dir2:
+total 0

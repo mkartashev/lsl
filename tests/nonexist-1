@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# Verify that referring to non-existent file leads to an error
+
+"$LS" -l ./nonexistent ./dir//// /-file > out 2>out.err
+
+[ $? -ne 0 ] && echo "Non-zero exit code" && exit 1
+[ -s out ] && echo "Non-empty standard output" && exit 1
+
+cat out.err | sort > out.err.sorted
+cat "$ROOT/nonexist-1.ref" | sort > ref.err.sorted
+
+diff out.err.sorted ref.err.sorted > diffs 2>/dev/null
+if [ $? -ne 0 ]; then
+	echo "Standard error output differs"
+	exit 1
+fi
+
+exit 0
